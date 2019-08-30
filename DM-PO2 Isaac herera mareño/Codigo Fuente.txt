@@ -1,0 +1,37 @@
+import random
+import matplotlib.pyplot as plt
+import statistics as stats
+horas= []
+temperaturas=[]
+segundo=0
+minuto=1
+hora=0
+limSup=[]
+limInf=[]
+conta=0
+for x in range(0,500):
+	if(segundo<59):
+		segundo=segundo+1
+	else:
+		minuto=minuto+1
+		segundo=1
+	if(minuto<59):
+		minuto=minuto
+	else:
+		hora=hora+1
+		minuto=1
+	limSup.append(3800)
+	limInf.append(2200)
+	horas.append("0:"+str(minuto)+":"+str(segundo))
+	temperaturas.append(random.randint(2000,4000))
+	if(temperaturas[x]<=limSup[0] and temperaturas[x]>=limInf[0]):
+		conta=conta+1
+	print ("2019-08-01",horas[x],"_",temperaturas[x])
+print("Media de las temperaturas:",stats.mean(temperaturas))
+print("Desviacion estandar de las temperaturas:", stats.pstdev(temperaturas))
+print("Puntos fuera de los limites:", conta)
+print("Puntos dentro de los limites:", 500-conta)
+plt.plot(horas,temperaturas,"c",horas,limSup,"r--",horas,limInf,"r--")
+plt.xlabel("Horas de 2019-08-01")
+plt.ylabel("Temperaturas")
+plt.show()
